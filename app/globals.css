@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 250 20% 98%; /* #FAF9F6 converted to HSL-like or just use hex if supported by my config */
+    /* Actually the config uses var definitions that map to hex, which work with `color: var(...)` but 
+       Shadcn usually uses HSL. The current CSS has HEX.
+       Let's keep the CSS variables as they are but map them effectively.
+    */
+    --background: #FAF9F6;
+    --foreground: #1A1A1A;
+    --card: #FFFFFF;
+    --card-foreground: #1A1A1A;
+    --popover: #FFFFFF;
+    --popover-foreground: #1A1A1A;
+    --primary: #1A1A1A;
+    --primary-foreground: #FAF9F6;
+    --secondary: #F0EFEB;
+    --secondary-foreground: #1A1A1A;
+    --muted: #F0EFEB;
+    --muted-foreground: #6B6B6B;
+    --accent: #E8E6E1;
+    --accent-foreground: #1A1A1A;
+    --destructive: #ef4444;
+    --destructive-foreground: #fafafa;
+    --border: #E0DED8;
+    --input: #E0DED8;
+    --ring: #1A1A1A;
+    --radius: 0.5rem;
+    --highlight: #C5FF4A;
+    --highlight-foreground: #1A1A1A;
+    --surface-dark: #1A1A1A;
+    --surface-dark-foreground: #FAF9F6;
+  }
+
+  .dark {
+    /* Add dark mode variables if known, otherwise assume light/default for now.
+       The original file had `@custom-variant dark (&:is(.dark *));` but no dark mode values in :root?
+       Wait, let's look at the original file again.
+       It only had :root. No .dark block.
+       The @custom-variant was defining the variant, not values.
+       So I will just leave :root.
+    */
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+     font-size: 110%;
+     scroll-behavior: smooth;
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.7s ease-out forwards;
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+.stagger-7 { animation-delay: 0.7s; }
+
+/* Accessibility: respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up,
+  .animate-fade-in,
+  .animate-slide-in-left,
+  .animate-marquee {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Smooth focus ring for interactive elements */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}

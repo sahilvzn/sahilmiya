@@ -1,0 +1,71 @@
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+    darkMode: ["class"],
+    content: [
+        "./app/**/*.{js,ts,jsx,tsx,mdx}",
+        "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+        "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    ],
+    theme: {
+        extend: {
+            fontFamily: {
+                sans: ['Inter', 'Inter Fallback', 'system-ui', 'sans-serif'],
+                serif: ['Instrument Serif', 'Georgia', 'serif'],
+                mono: ['Geist Mono', 'Geist Mono Fallback', 'monospace'],
+            },
+            colors: {
+                background: "var(--background)",
+                foreground: "var(--foreground)",
+                card: {
+                    DEFAULT: "var(--card)",
+                    foreground: "var(--card-foreground)",
+                },
+                popover: {
+                    DEFAULT: "var(--popover)",
+                    foreground: "var(--popover-foreground)",
+                },
+                primary: {
+                    DEFAULT: "var(--primary)",
+                    foreground: "var(--primary-foreground)",
+                },
+                secondary: {
+                    DEFAULT: "var(--secondary)",
+                    foreground: "var(--secondary-foreground)",
+                },
+                muted: {
+                    DEFAULT: "var(--muted)",
+                    foreground: "var(--muted-foreground)",
+                },
+                accent: {
+                    DEFAULT: "var(--accent)",
+                    foreground: "var(--accent-foreground)",
+                },
+                destructive: {
+                    DEFAULT: "var(--destructive)",
+                    foreground: "var(--destructive-foreground)",
+                },
+                border: "var(--border)",
+                input: "var(--input)",
+                ring: "var(--ring)",
+                highlight: {
+                    DEFAULT: "var(--highlight)",
+                    foreground: "var(--highlight-foreground)",
+                },
+                "surface-dark": {
+                    DEFAULT: "var(--surface-dark)",
+                    foreground: "var(--surface-dark-foreground)",
+                }
+            },
+            borderRadius: {
+                lg: "var(--radius)",
+                md: "calc(var(--radius) - 2px)",
+                sm: "calc(var(--radius) - 4px)",
+                xl: "calc(var(--radius) + 4px)",
+                "2xl": "calc(var(--radius) + 8px)",
+            },
+        },
+    },
+    plugins: [require("tailwindcss-animate")],
+};
+export default config;
