@@ -133,3 +133,9 @@
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
+}
+@media (min-width: 1280px) {
+    .xl\:text-7xl {
+        line-height: 1.1 !importent;
+    }
+}
