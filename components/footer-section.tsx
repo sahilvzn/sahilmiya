@@ -37,22 +37,22 @@ export function FooterSection() {
               </span>
             </div>
             <h3 className="mb-6 max-w-3xl text-xl font-bold leading-snug text-foreground sm:text-2xl lg:text-3xl text-balance">
-              Scaling a brand isn{"'"}t about{" "}
-              <mark className="rounded-md bg-highlight px-2 py-0.5 text-highlight-foreground">
-                prettier design.
+              Scaling isn{"'"}t about{" "}
+              <mark className="rounded-md bg-highlight px-2 py-1 text-highlight-foreground">
+                more headcount.
               </mark>
             </h3>
             <p className="max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
               It{"'"}s about{" "}
               <span className="font-semibold text-foreground">
-                strong positioning
+                intelligent systems
               </span>
-              , conversion logic,{" "}
+              , agentic workflows,{" "}
               <span className="font-semibold text-foreground">
-                operational leverage
+                multi-LLM orchestration
               </span>
-              , and automated growth loops.
-              I build brands that are engineered to scale - not patched together.
+              , and AI-powered operations that execute autonomously.
+              I build systems that replace entire teams - not just automate tasks.
             </p>
           </div>
         </AnimatedSection>
@@ -64,7 +64,7 @@ export function FooterSection() {
             <div className="flex flex-col items-start">
               <div className="mb-5 h-16 w-16 overflow-hidden rounded-full ring-2 ring-border sm:h-20 sm:w-20">
                 <Image
-                  src="/Gemini_Generated_Image_ennhu1ennhu1ennh.png"
+                  src="/logo.png"
                   alt="Sahil Miya - Profile Photo"
                   width={80}
                   height={80}
@@ -118,7 +118,7 @@ export function FooterSection() {
             Designed & Engineered by Sahil Miya
           </p>
           <p className="text-xs text-muted-foreground">
-            AI-Powered Brand Systems
+            AI-First Systems & Agentic Workflows
           </p>
         </div>
       </div>

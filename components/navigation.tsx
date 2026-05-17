@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 
 const navLinks = [
   { href: "/#work", label: "My Work" },
-  { href: "/#how-i-build", label: "How I Build" },
+  { href: "/blog", label: "Blog" },
   { href: "/#contact", label: "Let's Build" },
 ]
 
@@ -75,7 +75,7 @@ export function Navigation() {
             Sahil Miya
             <span className="text-muted-foreground font-normal hidden sm:inline">
               {" "}
-              - AI Brand Architect
+              - India's Leading AI Engineer
             </span>
           </Link>
 

@@ -1,0 +1,214 @@
+---
+title: "AI Video Generation Pipeline: From Script to Published Video in 30 Minutes"
+description: "How I automated video production using Claude for scripting, ElevenLabs for voiceovers, Runway ML for visuals, and n8n for orchestration — cutting production time by 85%."
+date: "2026-05-10"
+author: "Sahil Miya"
+tags: ["AI Video", "Runway ML", "ElevenLabs", "Content Automation", "Video Production"]
+---
+
+## The Video Production Problem
+
+Video content drives engagement. But traditional video production is slow:
+
+- **Scriptwriting**: 2-3 hours
+- **Voiceover recording**: 1-2 hours (+ studio booking)
+- **Video editing**: 4-8 hours
+- **Revisions**: Another 2-4 hours
+
+**Total**: 10-15 hours per video. For a weekly content calendar? **Impossible without a team.**
+
+## The AI Video Pipeline
+
+I built a fully automated pipeline that takes a topic and outputs a published video. Here's the stack:
+
+### Tech Stack
+
+- **Claude AI**: Script generation and structure
+- **ElevenLabs**: AI voiceover (11 languages supported)
+- **Runway ML / Kling AI**: Visual generation and video clips
+- **FFmpeg**: Video assembly and editing
+- **n8n**: Pipeline orchestration
+- **YouTube API**: Auto-publishing
+
+### The 4-Stage Pipeline
+
+#### Stage 1: Script Generation with Claude
+
+I don't give Claude a free-form prompt. I send it a structured brief:
+
+```json
+{
+  "topic": "How n8n works for AI automation",
+  "format": "educational explainer",
+  "duration": "90 seconds",
+  "target_audience": "founders and operators",
+  "tone": "conversational but authoritative",
+  "hook_style": "problem-solution",
+  "cta": "link in description"
+}
+```
+
+Claude outputs:
+- **Hook** (first 5 seconds)
+- **Problem statement** (10 seconds)
+- **Solution overview** (30 seconds)
+- **Demo/Example** (30 seconds)
+- **CTA** (15 seconds)
+
+Each section comes with **visual suggestions** — critical for the next stage.
+
+#### Stage 2: Voiceover Generation with ElevenLabs
+
+I use ElevenLabs' API to generate the voiceover. Key settings:
+
+```python
+voice_settings = {
+    "voice_id": "21m00Tcm4TlvDq8ikWAM",  # Custom voice clone
+    "model_id": "eleven_turbo_v2",
+    "voice_settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.75,
+        "style": 0.3,
+        "use_speaker_boost": True
+    }
+}
+```
+
+I trained a custom voice model using my own voice samples. This gives:
+- **Brand consistency**
+- **Emotional range control**
+- **Multi-language support** (I use Hindi + English)
+
+#### Stage 3: Visual Generation with Runway ML
+
+This is where it gets interesting. I use two approaches:
+
+**Approach 1: Text-to-Video (Runway Gen-2)**
+
+For conceptual visuals:
+
+```python
+runway_params = {
+    "text_prompt": "Modern AI workflow automation dashboard, clean UI, dark mode",
+    "style": "photorealistic",
+    "duration": 4,
+    "aspect_ratio": "16:9"
+}
+```
+
+**Approach 2: Image-to-Video (Kling AI)**
+
+For specific product shots or demos:
+
+1. Generate base image with Midjourney
+2. Send to Kling for video interpolation
+3. Add motion and transitions
+
+#### Stage 4: Assembly and Publishing
+
+FFmpeg stitches everything together:
+
+```bash
+ffmpeg -i voiceover.mp3 \
+       -i visual_1.mp4 \
+       -i visual_2.mp4 \
+       -i visual_3.mp4 \
+       -filter_complex "[1:v][2:v][3:v]concat=n=3:v=1[outv]" \
+       -map "[outv]" -map 0:a \
+       -c:v libx264 -c:a aac \
+       final_video.mp4
+```
+
+Then n8n publishes to:
+- YouTube (with auto-generated description and tags)
+- LinkedIn (native video upload)
+- Twitter (direct upload)
+
+## Real-World Performance
+
+### Time Comparison
+
+| Stage | Manual | AI Pipeline | Savings |
+|-------|--------|-------------|---------|
+| Scripting | 2-3 hrs | 5 mins | 96% |
+| Voiceover | 1-2 hrs | 3 mins | 95% |
+| Visuals | 4-8 hrs | 15 mins | 90% |
+| Editing | 2-4 hrs | 7 mins | 94% |
+| **Total** | **10-15 hrs** | **30 mins** | **85%** |
+
+### Cost Analysis
+
+- **Traditional video**: $500-1500 (freelancer)
+- **AI pipeline per video**:
+  - Claude API: $0.30
+  - ElevenLabs: $0.80
+  - Runway ML: $4.00
+  - Infrastructure: $0.50
+  - **Total**: **$5.60 per video**
+
+**ROI**: 99% cost reduction.
+
+## The Non-Obvious Challenges
+
+### 1. Visual Coherence
+
+AI-generated visuals don't automatically match. I solved this by:
+
+- **Style consistency prompts**: Include "same art style as previous frame"
+- **Color palette locking**: Extract dominant colors and enforce
+- **Transition frames**: Generate 5-frame overlaps for smooth cuts
+
+### 2. Voiceover Pacing
+
+ElevenLabs sometimes speeds through technical terms. I fixed this with:
+
+```python
+# Add SSML tags for pacing control
+text = "<break time='0.5s'/> n8n <break time='0.3s'/> is a workflow automation tool"
+```
+
+### 3. YouTube SEO
+
+Auto-generated videos need manual SEO tuning. My n8n workflow now:
+
+1. Extracts keywords from script (Claude)
+2. Generates title variations (Claude)
+3. A/B tests thumbnails (Midjourney + Claude analysis)
+4. Auto-tags with trending topics (YouTube API scraping)
+
+## The Next Evolution: Agentic Video Production
+
+I'm now building **autonomous video agents**:
+
+- **Research Agent**: Scrapes trending topics and competitor content
+- **Script Agent**: Generates multiple variations
+- **Visual Agent**: Selects optimal visual style per topic
+- **Publishing Agent**: Decides best time to publish based on analytics
+
+The goal? **Zero-input content production**. Give it a topic area, and it produces a video series autonomously.
+
+## Open Source Components
+
+I'm releasing parts of this pipeline:
+
+1. **Claude script template** (structured prompt for video scripts)
+2. **n8n workflow JSON** (full pipeline)
+3. **FFmpeg assembly scripts** (video stitching)
+
+Available on my [GitHub](https://github.com/sahilvzn).
+
+## Want This for Your Brand?
+
+I consult with D2C and B2B companies to implement AI video systems. We've deployed this for:
+
+- **E-commerce brands**: Product demos at scale
+- **SaaS companies**: Feature announcement videos
+- **Education platforms**: Course content generation
+
+**Contact**: [LinkedIn](https://linkedin.com/in/sahilvzn) • Email: **sahil.vzn@gmail.com**
+
+---
+
+**About the Author**: Sahil Miya is the founder of **Qwikbrand**, specializing in AI-powered content systems, workflow automation, and commerce infrastructure. He architects end-to-end AI pipelines that replace manual operations with intelligent systems.
+
+**Connect**: [LinkedIn](https://linkedin.com/in/sahilvzn) • [Medium](https://medium.com/@sahilmiya.in) • [GitHub](https://github.com/sahilvzn)

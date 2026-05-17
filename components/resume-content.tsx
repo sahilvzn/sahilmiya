@@ -5,7 +5,6 @@ import Link from "next/link"
 import Image from "next/image"
 import {
   ArrowLeft,
-  Download,
   MapPin,
   Mail,
   Globe,
@@ -19,14 +18,25 @@ import { cn } from "@/lib/utils"
 
 const experience = [
   {
-    role: "Full Stack Developer & Commerce Lead",
-    company: "The Wellness Shop",
+    role: "Founder & AI Systems Architect",
+    company: "Qwikbrand",
+    period: "Oct 2025 - Present",
+    highlights: [
+      "Architect end-to-end AI automation pipelines using n8n, Claude AI, and multi-model LLM orchestration.",
+      "Built multi-model content engines (Claude + GPT-4) that generate 200+ pieces/month autonomously.",
+      "Designed AI video generation pipelines: script (Claude) → voiceover (ElevenLabs) → visuals (Runway) → 60% faster output.",
+      "Deploy agentic AI workflows that execute complex decision chains and multi-step operations autonomously.",
+    ],
+  },
+  {
+    role: "AI Commerce Systems Lead",
+    company: "The Wellness Shop & Imaraya",
     period: "Jan 2026 - Present",
     highlights: [
-      "Leading commerce optimization and storefront engineering for The Wellness Shop and Imaraya.",
-      "Built high-conversion Shopify storefronts with performance-focused architecture and CRO-driven UI patterns.",
-      "Redesigned product pages and checkout flows, significantly improving user experience and AOV.",
-      "Engineered responsive, brand-aligned design systems and data-driven A/B testing infrastructure.",
+      "Integrated LLM-driven personalization and abandoned cart recovery via Claude API + GPT-4 integration.",
+      "Built AI-assisted A/B testing infrastructure — auto-generating copy variants and analyzing results.",
+      "Developed Python and PHP automation scripts for product feed management and dynamic pricing.",
+      "Engineered AI-powered customer segmentation and predictive analytics systems.",
     ],
   },
   {
@@ -34,18 +44,18 @@ const experience = [
     company: "Growth Escalators",
     period: "Sept 2025 - Dec 2025",
     highlights: [
-      "Developed brand-focused Shopify infrastructure for Paraiso Comfortwears.",
-      "Built automated inventory and fulfillment workflows to reduce operational overhead.",
-      "Created scalable design systems for consistent brand presentation."
+      "Automated inventory, fulfillment, and customer comms using n8n + AI-generated response templates.",
+      "Built scalable Shopify infrastructure with AI-powered workflow automation.",
+      "Reduced manual operations significantly through intelligent system design.",
     ],
   },
   {
-    role: "Freelance Digital Ecosystem Designer",
+    role: "AI-Powered Brand Ecosystem Designer",
     company: "Nagesh Singh",
     period: "Feb 2026",
     highlights: [
-      "Designed personal brand + authority-based digital ecosystem.",
-      "Built revenue-generating funnel system combining content, social proof, and automation.",
+      "Built full AI-powered personal brand system: content calendar, auto-scheduling, Claude/GPT prompting frameworks.",
+      "Designed revenue-generating funnel with AI-driven content generation and automation.",
     ],
   },
 ]
@@ -125,7 +135,7 @@ export function ResumeContent() {
                 <div className="flex items-center gap-4 mb-4">
                   <div className="h-14 w-14 overflow-hidden rounded-full ring-2 ring-border sm:h-16 sm:w-16">
                     <Image
-                      src="/Gemini_Generated_Image_ennhu1ennhu1ennh.png"
+                      src="/logo.png"
                       alt="Sahil Miya - Professional Headshot"
                       width={64}
                       height={64}
@@ -139,7 +149,7 @@ export function ResumeContent() {
                     </h1>
                     <p className="text-base font-medium text-highlight-foreground sm:text-lg">
                       <mark className="rounded-md bg-highlight px-2 py-0.5">
-                        AI Brand & Commerce Systems Architect
+                        AI Generalist & Agentic Systems Architect
                       </mark>
                     </p>
                   </div>
@@ -167,28 +177,16 @@ export function ResumeContent() {
                   </a>
                 </div>
               </div>
-              <a
-                href="https://drive.google.com/file/d/1FiQ_F6Co3Wkd6LUi_wDPbnlXSkAkmZeV/view?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-all hover:scale-[1.03] hover:shadow-lg active:scale-100 self-start"
-                aria-label="Download resume as PDF"
-              >
-                <Download className="h-4 w-4" />
-                <span className="hidden sm:inline">Download PDF</span>
-                <span className="sm:hidden">PDF</span>
-              </a>
             </div>
           </div>
 
           {/* Summary */}
           <div className="border-b border-border px-6 py-6 sm:px-8 sm:py-8 lg:px-10">
             <p className="text-base leading-relaxed text-foreground sm:text-lg">
-              I design digital ecosystems that turn traffic into predictable revenue.
-              From Shopify infrastructure to AI automations and social growth systems -{" "}
-              <span className="font-semibold">I build brands from zero to scale</span>.
-              I engineer AI-powered commerce systems that automate growth, increase conversions,
-              and remove operational friction.
+              I architect AI-first systems that replace entire operations.
+              From multi-LLM pipelines to agentic workflows and autonomous execution systems -{" "}
+              <span className="font-semibold">I build intelligence layers that scale output 10x without scaling headcount</span>.
+              Founder of Qwikbrand. Expert in Claude AI, n8n, AI video generation, and workflow engineering.
             </p>
           </div>
 
@@ -361,7 +359,7 @@ export function ResumeContent() {
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 overflow-hidden rounded-full ring-1 ring-border">
               <Image
-                src="/Gemini_Generated_Image_ennhu1ennhu1ennh.png"
+                src="/logo.png"
                 alt="Sahil Miya - Profile Miniature"
                 width={40}
                 height={40}

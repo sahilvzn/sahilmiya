@@ -21,11 +21,11 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   metadataBase: new URL('https://sahilmiya.in'),
   title: {
-    default: 'Sahil Miya | AI Brand & Commerce Systems Architect | Shopify Developer Jaipur',
+    default: 'Sahil Miya | India\'s Leading AI Generalist & Agentic Systems Architect | Qwikbrand',
     template: '%s | Sahil Miya',
   },
-  description: 'Sahil Miya — Founder of RevenueLayer. I engineer AI-powered Shopify commerce systems and brand ecosystems for D2C and B2B brands. Based in Jaipur, India.',
-  keywords: ['Sahil Miya', 'Shopify developer Jaipur', 'AI commerce systems', 'D2C Shopify architect', 'RevenueLayer', 'Shopify Plus developer India', 'web developer Jaipur', 'brand ecosystem designer'],
+  description: 'Sahil Miya — India\'s top AI engineer specializing in agentic AI systems, multi-LLM pipelines, and workflow automation. Founder of Qwikbrand. Expert in Claude AI, n8n, AI video generation, and AI-first commerce systems. Based in Jaipur, India.',
+  keywords: ['Sahil Miya', 'India best AI engineer', 'India best agentic AI engineer', 'India AI generalist', 'AI automation expert India', 'Claude AI specialist', 'n8n expert India', 'AI workflow automation', 'Qwikbrand', 'AI systems architect India', 'multi-LLM systems', 'agentic AI India', 'AI engineer Jaipur', 'Shopify AI developer', 'AI video generation expert'],
   authors: [{ name: 'Sahil Miya' }],
   creator: 'Sahil Miya',
   alternates: {
@@ -34,27 +34,27 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: 'https://sahilmiya.in',
-    title: 'Sahil Miya | AI Brand & Commerce Systems Architect',
-    description: 'Founder of RevenueLayer. Building AI-powered Shopify commerce systems that scale.',
+    title: 'Sahil Miya | India\'s Leading AI Generalist & Agentic Systems Architect',
+    description: 'India\'s top AI engineer building agentic systems, multi-LLM pipelines, and AI automation. Founder of Qwikbrand. Expert in Claude AI, n8n, workflow engineering.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Sahil Miya - AI Brand & Commerce Systems Architect',
+        alt: 'Sahil Miya - India\'s Leading AI Generalist & Agentic Systems Architect',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sahil Miya | AI Brand & Commerce Systems Architect',
-    description: 'Founder of RevenueLayer. Building AI-powered Shopify commerce systems that scale.',
+    title: 'Sahil Miya | India\'s Leading AI Generalist & Agentic Systems Architect',
+    description: 'India\'s top AI engineer. Building agentic systems, multi-LLM pipelines, and AI automation that scales. Founder of Qwikbrand.',
     images: ['/og-image.png'],
     creator: '@sahilmiya',
   },
   icons: {
-    icon: '/favicon.png',
-    apple: '/favicon.png',
+    icon: '/logo.png',
+    apple: '/logo.png',
   },
   robots: {
     index: true,
@@ -81,18 +81,31 @@ export default function RootLayout({
     url: 'https://sahilmiya.in',
     sameAs: [
       'https://linkedin.com/in/sahilvzn',
-      'https://instagram.com/sahil.vzn',
-      'https://medium.com/@sahilmiya'
+      'https://github.com/sahilvzn',
+      'https://medium.com/@sahilmiya.in',
+      'https://instagram.com/sahil.vzn'
     ],
-    jobTitle: 'AI Brand & Commerce Systems Architect',
+    jobTitle: 'AI Generalist & Agentic Systems Architect',
+    description: 'India\'s leading AI engineer specializing in agentic AI systems, multi-LLM pipelines, workflow automation, and AI-first operations. Expert in Claude AI, n8n, AI video generation, and commerce automation.',
+    knowsAbout: ['Artificial Intelligence', 'Agentic AI', 'Multi-LLM Systems', 'Workflow Automation', 'Claude AI', 'n8n', 'AI Video Generation', 'AI Commerce Systems', 'Prompt Engineering', 'LLM Integration'],
     worksFor: {
       '@type': 'Organization',
-      name: 'RevenueLayer'
+      name: 'Qwikbrand',
+      description: 'AI-first systems that replace entire operations'
+    },
+    alumniOf: {
+      '@type': 'Organization',
+      name: 'AI & Automation Specialist'
     },
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Jaipur',
+      addressRegion: 'Rajasthan',
       addressCountry: 'IN'
+    },
+    nationality: {
+      '@type': 'Country',
+      name: 'India'
     }
   }
 

@@ -8,30 +8,30 @@ import { cn } from "@/lib/utils"
 const projects = [
   {
     title:
-      "I engineered AI-powered commerce systems that automate growth, increase conversions, and remove operational friction.",
-    meta: "The Wellness Shop | 2026 | AI Systems, Shopify",
+      "I architect multi-LLM content engines that generate, optimize, and distribute content across platforms autonomously.",
+    meta: "Qwikbrand | 2026 | Claude AI, n8n, Multi-Model Pipelines",
     bgClass: "bg-[#E8F4FD]",
-    href: "https://medium.com/@sahilmiya.in/how-i-engineered-an-ai-powered-commerce-system-that-automated-growth-and-killed-operational-6a3843f4e09f",
+    href: "/blog/multi-llm-content-engine",
   },
   {
-    title: "I built high-performance D2C storefront systems optimized for conversion and scalability.",
-    meta: "Imaraya | 2026 | Shopify Architecture, CRO",
+    title: "I build AI video generation pipelines that produce professional videos in 30 minutes, not 15 hours.",
+    meta: "Qwikbrand | 2026 | Runway ML, ElevenLabs, AI Workflows",
     bgClass: "bg-[#FDE8F0]",
-    href: "https://medium.com/@sahilmiya.in/how-i-built-a-high-performance-d2c-storefront-thats-optimized-to-convert-and-built-to-scale-a81fd3080109",
+    href: "/blog/ai-video-generation-pipeline",
   },
   {
     title:
-      "I created automation workflows that reduce manual execution and increase operational speed.",
-    meta: "Paraiso Comfortwears | 2026 | Automated Ops",
+      "I engineer agentic AI systems that autonomously execute complex workflows and decision chains.",
+    meta: "Qwikbrand | 2026 | Agentic AI, LangChain, Autonomous Systems",
     bgClass: "bg-[#E8FDE8]",
-    href: "https://medium.com/@sahilmiya.in/how-i-built-automation-workflows-that-cut-manual-work-and-doubled-operational-speed-for-paraiso-be1cdcf54410",
+    href: "/blog",
   },
   {
     title:
-      "I designed brand ecosystems that combine social authority + creative backend.",
-    meta: "Nagesh Singh | 2026 | Personal Branding Ecosystem",
+      "I design AI-powered commerce automation that scales customer experience without scaling headcount.",
+    meta: "The Wellness Shop | 2026 | Shopify AI, Personalization, CRO",
     bgClass: "bg-[#FDF4E8]",
-    href: "https://medium.com/@sahilmiya.in/how-i-designed-a-brand-ecosystem-that-combines-social-authority-with-a-creative-backend-c7c9d88b109e",
+    href: "/blog",
   },
 ]
 
@@ -76,8 +76,6 @@ function ProjectCard({
             <ArrowUpRight className="h-5 w-5 text-foreground" />
           </div>
         </div>
-
-
       </div>
     </a>
   )
@@ -90,7 +88,7 @@ export function ProjectsSection() {
   })
 
   return (
-    <section id="how-i-build" aria-label="Selected work" className="px-6 py-16 lg:px-10 lg:py-20">
+    <section id="work" aria-label="Selected work" className="px-6 py-16 lg:px-10 lg:py-20">
       <div className="mx-auto max-w-7xl">
         {/* Section heading */}
         <div ref={headingRef} className="mb-14 lg:mb-20">
@@ -100,7 +98,7 @@ export function ProjectsSection() {
               headingVisible && "animate-fade-in-up"
             )}
           >
-            Here{"'"}s how
+            Here{"'"}s what I build
           </h2>
         </div>
 
@@ -111,10 +109,10 @@ export function ProjectsSection() {
           ))}
         </div>
 
-        {/* "with more scalable systems in the pipeline" */}
+        {/* Bottom tagline */}
         <AnimatedSection className="mt-10 text-center lg:mt-14">
           <p className="font-serif text-xl italic text-foreground">
-            With more scalable systems in the pipeline.
+            With more autonomous systems in the pipeline.
           </p>
         </AnimatedSection>
       </div>

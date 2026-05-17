@@ -1,0 +1,172 @@
+---
+title: "How I Built a Multi-LLM Content Engine with Claude AI and n8n"
+description: "A deep dive into architecting an AI content pipeline that generates, optimizes, and publishes content across multiple platforms using Claude Code, n8n workflows, and API orchestration."
+date: "2026-05-15"
+author: "Sahil Miya"
+tags: ["AI Automation", "Claude AI", "n8n", "Workflow Engineering", "LLM Integration"]
+---
+
+## The Problem: Content Bottleneck in AI-First Companies
+
+Most AI companies face the same paradox: they build AI products but run manual content operations. At **Qwikbrand**, I needed to produce:
+
+- 20+ social posts per week
+- Product documentation updates
+- Email sequences for multiple segments
+- SEO blog content
+- Customer support templates
+
+Doing this manually? **80+ hours/month**. Unscalable.
+
+## The Solution: Multi-Model Content Orchestra
+
+I built a system that uses **Claude AI as the orchestrator** and **n8n as the execution layer**. Here's the architecture:
+
+### Architecture Overview
+
+```mermaid
+graph LR
+    A[Content Brief] --> B[Claude AI]
+    B --> C[Draft Generation]
+    C --> D[n8n Webhook]
+    D --> E[Quality Check]
+    E --> F[Multi-Platform Publishing]
+    F --> G[Analytics Tracking]
+```
+
+### The Tech Stack
+
+- **Claude Code**: For complex logic and code generation
+- **Claude AI API**: Content generation and editing
+- **n8n**: Workflow orchestration and API chaining
+- **Python**: Custom processors for SEO optimization
+- **Supabase**: Content database and version control
+
+## Implementation: Step-by-Step
+
+### 1. Content Brief → Claude AI Processing
+
+First, I created a structured input system. Instead of free-form prompts, I use a JSON schema:
+
+```json
+{
+  "topic": "AI automation workflows",
+  "audience": "technical founders",
+  "tone": "practical, not academic",
+  "length": "1200-1500 words",
+  "cta": "Book consultation",
+  "seo_keywords": ["AI automation", "n8n workflows", "Claude API"]
+}
+```
+
+This gets sent to Claude via API with a custom system prompt that I've refined over 200+ iterations.
+
+### 2. Claude Generates Multi-Format Content
+
+Claude doesn't just write a blog post. It generates:
+
+- **Long-form article** (SEO-optimized)
+- **LinkedIn post** (hook-driven, 1300 chars)
+- **Twitter thread** (8-10 tweets)
+- **Email version** (different framing)
+- **Meta descriptions** for each platform
+
+All in one API call. This is the power of Claude's context window.
+
+### 3. n8n Orchestrates the Pipeline
+
+The n8n workflow has 12 nodes:
+
+1. **Webhook Trigger** (receives content brief)
+2. **Claude API Call** (content generation)
+3. **Python Code Node** (SEO keyword density check)
+4. **Conditional Logic** (quality threshold gates)
+5. **Image Generation** (Midjourney API)
+6. **Medium API** (auto-publish)
+7. **LinkedIn API** (scheduled post)
+8. **Twitter API** (thread publishing)
+9. **Mailchimp API** (email campaign)
+10. **Supabase Insert** (archive + analytics)
+11. **Slack Notification** (team update)
+12. **Error Handler** (retry logic)
+
+### 4. The Critical Piece: Quality Gates
+
+Not all LLM output ships. I built quality checks:
+
+```python
+def quality_check(content):
+    checks = {
+        "keyword_density": check_keyword_density(content),
+        "readability_score": flesch_kincaid(content),
+        "originality": check_plagiarism(content),
+        "brand_voice": cosine_similarity(content, brand_corpus)
+    }
+    return all(checks.values())
+```
+
+If it fails? Back to Claude with feedback. This loop runs max 2 times before human review.
+
+## Results: 60% Faster, 10x Volume
+
+After 3 months of running this system:
+
+- **Content production time**: 80 hours → 30 hours/month
+- **Volume**: 20 pieces/month → 200 pieces/month
+- **Cost per piece**: $12 (freelancer) → $0.40 (API + infra)
+- **Quality score** (measured by engagement): +15%
+
+## Key Learnings
+
+### 1. Claude AI > GPT-4 for Long-Form Content
+
+I tested both. Claude wins on:
+- Coherent long-form structure
+- Following complex instructions
+- Brand voice consistency
+- Code generation quality
+
+GPT-4 wins on:
+- Speed (slightly)
+- Creative ideation
+- Conversational responses
+
+### 2. n8n Is the Hidden Gem
+
+Most people overlook n8n. It's:
+- Self-hosted (data control)
+- Visual workflow builder (non-dev friendly)
+- 400+ integrations
+- Webhook-first architecture
+
+Perfect for AI pipelines.
+
+### 3. Structured Prompts > Conversational
+
+Don't chat with Claude. Send it structured data. My prompts are:
+- JSON schemas
+- Clear success criteria
+- Examples (few-shot learning)
+- Explicit constraints
+
+This reduces hallucinations by ~80%.
+
+## The Future: Agent-Driven Content Systems
+
+I'm now building v2 with **agentic workflows**:
+
+- Claude autonomously decides when to publish
+- Self-improving prompts based on engagement data
+- Multi-agent collaboration (research agent + writing agent)
+
+The goal? **Zero-touch content operations**.
+
+## Want to Build This?
+
+I'm open-sourcing the n8n workflow and Python processors. Drop me a message on [LinkedIn](https://linkedin.com/in/sahilvzn) or email **sahil.vzn@gmail.com**.
+
+---
+
+**About the Author**: Sahil Miya is the founder of **Qwikbrand**, where he architects AI-first systems for D2C and B2B companies. He specializes in LLM integration, workflow automation, and commerce systems. Based in Jaipur, India.
+
+**Connect**: [LinkedIn](https://linkedin.com/in/sahilvzn) • [Medium](https://medium.com/@sahilmiya.in) • [GitHub](https://github.com/sahilvzn)

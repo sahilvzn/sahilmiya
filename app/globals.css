@@ -4,45 +4,35 @@
 
 @layer base {
   :root {
-    --background: 250 20% 98%; /* #FAF9F6 converted to HSL-like or just use hex if supported by my config */
-    /* Actually the config uses var definitions that map to hex, which work with `color: var(...)` but 
-       Shadcn usually uses HSL. The current CSS has HEX.
-       Let's keep the CSS variables as they are but map them effectively.
-    */
-    --background: #FAF9F6;
-    --foreground: #1A1A1A;
-    --card: #FFFFFF;
-    --card-foreground: #1A1A1A;
+    /* Warm Jaipur-inspired color palette */
+    --background: #FEF7E7; /* Warm cream/beige */
+    --foreground: #4A2511; /* Dark brown */
+    --card: #FFF8E7;
+    --card-foreground: #4A2511;
     --popover: #FFFFFF;
-    --popover-foreground: #1A1A1A;
-    --primary: #1A1A1A;
-    --primary-foreground: #FAF9F6;
-    --secondary: #F0EFEB;
-    --secondary-foreground: #1A1A1A;
-    --muted: #F0EFEB;
-    --muted-foreground: #6B6B6B;
-    --accent: #E8E6E1;
-    --accent-foreground: #1A1A1A;
-    --destructive: #ef4444;
+    --popover-foreground: #4A2511;
+    --primary: #8B4513; /* Saddle brown */
+    --primary-foreground: #FFF8E7;
+    --secondary: #FFE4B5; /* Light amber */
+    --secondary-foreground: #4A2511;
+    --muted: #F4E4C1;
+    --muted-foreground: #8B6F47;
+    --accent: #FFD700; /* Gold accent */
+    --accent-foreground: #4A2511;
+    --destructive: #DC143C;
     --destructive-foreground: #fafafa;
-    --border: #E0DED8;
-    --input: #E0DED8;
-    --ring: #1A1A1A;
-    --radius: 0.5rem;
-    --highlight: #C5FF4A;
-    --highlight-foreground: #1A1A1A;
-    --surface-dark: #1A1A1A;
-    --surface-dark-foreground: #FAF9F6;
+    --border: #D4A574;
+    --input: #D4A574;
+    --ring: #FF6B35;
+    --radius: 0.75rem;
+    --highlight: #FFD700; /* Gold highlight */
+    --highlight-foreground: #4A2511;
+    --surface-dark: #6B4423; /* Warm brown */
+    --surface-dark-foreground: #FFF8E7;
   }
 
   .dark {
-    /* Add dark mode variables if known, otherwise assume light/default for now.
-       The original file had `@custom-variant dark (&:is(.dark *));` but no dark mode values in :root?
-       Wait, let's look at the original file again.
-       It only had :root. No .dark block.
-       The @custom-variant was defining the variant, not values.
-       So I will just leave :root.
-    */
+    /* Keep same warm palette for consistency */
   }
 }
  
@@ -133,4 +123,8 @@
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
+
+/* Handwriting font utility */
+.font-handwriting {
+  font-family: 'Comic Sans MS', 'Marker Felt', 'Bradley Hand', cursive;
 }

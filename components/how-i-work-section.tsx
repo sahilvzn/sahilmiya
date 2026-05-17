@@ -46,16 +46,16 @@ export function HowIWorkSection() {
                 </h3>
               </div>
               <p className="max-w-2xl text-base leading-relaxed text-foreground sm:text-lg">
-                Most people build pages.{" "}
+                Most people build apps.{" "}
                 <span className="font-semibold">
-                  I build revenue engines.
+                  I build AI-first operational systems.
                 </span>{" "}
-                Every project starts with conversion architecture, automation mapping, traffic-to-revenue logic, and backend scalability planning.
+                Every project starts with multi-model architecture, agentic workflow design, LLM orchestration logic, and autonomous execution planning.
               </p>
 
               {/* Process tags */}
               <div className="mt-8 flex flex-wrap gap-2 sm:gap-3" aria-label="Process steps">
-                {["Conversion Architecture", "Automation Mapping", "Revenue Logic", "Scalability"].map(
+                {["Multi-LLM Architecture", "Agentic Workflows", "API Orchestration", "Autonomous Systems"].map(
                   (label) => (
                     <span
                       key={label}
@@ -87,10 +87,11 @@ export function HowIWorkSection() {
                   </span>
                 </div>
                 <p className="text-base leading-relaxed text-surface-dark-foreground/80 sm:text-lg">
-                  AI is not a gimmick. It{"'"}s an{" "}
-                  <strong className="text-surface-dark-foreground">operational multiplier</strong>.
-                  I use AI to automate workflows, generate growth insights, reduce execution time, and{" "}
-                  <strong className="text-surface-dark-foreground">increase output without increasing cost</strong>.
+                  AI is not a tool. It{"'"}s an{" "}
+                  <strong className="text-surface-dark-foreground">intelligence layer</strong>.
+                  I architect systems where Claude, GPT-4, and specialized models work together autonomously - 
+                  orchestrating content generation, decision-making, and workflow execution{" "}
+                  <strong className="text-surface-dark-foreground">without human intervention</strong>.
                 </p>
               </div>
 

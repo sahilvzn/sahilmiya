@@ -35,7 +35,7 @@ export function HeroSection() {
                 isVisible && "animate-fade-in-up stagger-2"
               )}
             >
-              I blend
+              India{"'"}s Leading
             </span>
             <span
               className={cn(
@@ -43,7 +43,7 @@ export function HeroSection() {
                 isVisible && "animate-fade-in-up stagger-3"
               )}
             >
-              commerce engineering + AI systems
+              AI Generalist & Agentic Systems Architect
             </span>
             <span
               className={cn(
@@ -51,10 +51,10 @@ export function HeroSection() {
                 isVisible && "animate-fade-in-up stagger-4"
               )}
             >
-              to build brands that don{"'"}t just look good -{" "}
-              <mark className="rounded-lg bg-highlight px-3 py-1 text-highlight-foreground">
-                they scale.
-              </mark>
+              Building AI-first systems that{" "}
+              <span className="relative inline-block">
+                <span className="relative border-b-4 border-highlight pb-1">replace entire operations.</span>
+              </span>
             </span>
           </h1>
 
@@ -67,9 +67,12 @@ export function HeroSection() {
               )}
             >
               <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-                I design digital ecosystems that turn traffic into predictable revenue.
-                From <span className="font-semibold text-foreground">Shopify infrastructure</span> to{" "}
-                <span className="font-semibold text-foreground">AI automations</span> and social growth systems - I build brands from zero.
+                Founder of <span className="font-semibold text-foreground">Qwikbrand</span>. 
+                I architect <span className="font-semibold text-foreground">multi-LLM pipelines</span>, 
+                <span className="font-semibold text-foreground"> agentic workflows</span>, and 
+                <span className="font-semibold text-foreground"> AI automation systems</span> that scale output 10x without scaling headcount.
+                <br /><br />
+                <span className="text-foreground font-medium">Claude AI • n8n • Runway ML • Shopify AI • Workflow Engineering</span>
               </p>
             </div>
 
@@ -80,10 +83,10 @@ export function HeroSection() {
               )}
             >
               <a
-                href="#how-i-build"
+                href="#work"
                 className="inline-flex items-center gap-2 rounded-full bg-foreground px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:scale-[1.03] hover:shadow-lg active:scale-100"
               >
-                {"So... how do I do that?"}
+                {"See my work"}
                 <ArrowDown className="h-4 w-4" />
               </a>
             </div>
