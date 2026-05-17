@@ -1,199 +1,97 @@
-import { type Metadata } from "next"
-import { notFound } from "next/navigation"
-import Image from "next/image"
-import Link from "next/link"
-import { MDXRemote } from "next-mdx-remote/rsc"
-import rehypeHighlight from "rehype-highlight"
-import rehypeSlug from "rehype-slug"
-import rehypeAutolinkHeadings from "rehype-autolink-headings"
-import remarkGfm from "remark-gfm"
-import { Navigation } from "@/components/navigation"
-import { FooterSection } from "@/components/footer-section"
-import { getAllPosts, getPostBySlug } from "@/lib/blog"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { CalendarDays, Clock, ArrowLeft, Share2 } from "lucide-react"
-import "highlight.js/styles/github-dark.css"
+import { supabase } from '@/lib/supabase'
+import { notFound } from 'next/navigation'
+import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
-interface BlogPostPageProps {
-  params: Promise<{
-    slug: string
-  }>
-}
+export const revalidate = 60
 
 export async function generateStaticParams() {
-  const posts = getAllPosts()
-  return posts.map((post) => ({
-    slug: post.slug,
-  }))
+  const { data: posts } = await supabase
+    .from('blog_posts')
+    .select('slug')
+    .eq('published', true)
+
+  return posts?.map((post) => ({ slug: post.slug })) || []
 }
 
-export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const { slug } = await params
-  const post = getPostBySlug(slug)
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const { data: post } = await supabase
+    .from('blog_posts')
+    .select('*')
+    .eq('slug', params.slug)
+    .eq('published', true)
+    .single()
 
-  if (!post) {
-    return {
-      title: "Post Not Found",
-    }
-  }
+  if (!post) return { title: 'Post Not Found' }
 
   return {
-    title: post.title,
-    description: post.description,
-    alternates: {
-      canonical: `https://sahilmiya.in/blog/${slug}`,
-    },
-    openGraph: {
-      title: post.title,
-      description: post.description,
-      url: `https://sahilmiya.in/blog/${slug}`,
-      type: "article",
-      publishedTime: post.date,
-      authors: [post.author],
-      images: post.image ? [post.image] : [],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.description,
-      images: post.image ? [post.image] : [],
-    },
+    title: `${post.title} - Sahil Miya`,
+    description: post.description || post.title,
   }
 }
 
-export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = await params
-  const post = getPostBySlug(slug)
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+  const { data: post } = await supabase
+    .from('blog_posts')
+    .select('*')
+    .eq('slug', params.slug)
+    .eq('published', true)
+    .single()
 
-  if (!post) {
-    notFound()
-  }
-
-  // JSON-LD for Article
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.description,
-    image: post.image || "https://sahilmiya.in/og-image.png",
-    datePublished: post.date,
-    dateModified: post.date,
-    author: {
-      "@type": "Person",
-      name: post.author,
-      url: "https://sahilmiya.in",
-    },
-    publisher: {
-      "@type": "Person",
-      name: "Sahil Miya",
-      url: "https://sahilmiya.in",
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `https://sahilmiya.in/blog/${slug}`,
-    },
-  }
-
-  const mdxOptions: any = {
-    mdxOptions: {
-      remarkPlugins: [remarkGfm],
-      rehypePlugins: [rehypeHighlight, rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]],
-    },
-  }
+  if (!post) notFound()
 
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <Navigation />
-      <main className="min-h-screen bg-background">
-        <article className="container mx-auto px-4 py-16 max-w-4xl">
-          {/* Back Button */}
-          <Link href="/blog">
-            <Button variant="ghost" className="mb-8">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Blog
-            </Button>
+    <div className="min-h-screen bg-[#FEF7E7]">
+      <header className="border-b border-[#D4A574] bg-[#FFF8E7]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <Link href="/blog" className="inline-flex items-center gap-2 text-[#4A2511] hover:text-[#FFD700] transition-colors mb-4">
+            <ArrowLeft className="w-4 h-4" />
+            Back to blog
           </Link>
+        </div>
+      </header>
 
-          {/* Featured Image */}
-          {post.image && (
-            <div className="relative w-full h-[400px] rounded-lg overflow-hidden mb-8">
-              <Image
-                src={post.image}
-                alt={post.title}
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-          )}
+      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h1 className="text-4xl sm:text-5xl font-bold text-[#4A2511] mb-4">{post.title}</h1>
 
-          {/* Article Header */}
-          <header className="mb-8">
-            <div className="flex flex-wrap gap-2 mb-4">
-              {post.tags.map((tag) => (
-                <Badge key={tag} variant="secondary">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
+        {post.description && (
+          <p className="text-xl text-[#4A2511]/70 mb-6">{post.description}</p>
+        )}
 
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              {post.title}
-            </h1>
+        <div className="flex items-center gap-4 text-sm text-[#4A2511]/60 mb-8 pb-8 border-b border-[#D4A574]">
+          <time dateTime={post.created_at}>
+            {new Date(post.created_at).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </time>
+          <span>•</span>
+          <span>{post.author}</span>
+        </div>
 
-            <p className="text-xl text-muted-foreground mb-6">
-              {post.description}
-            </p>
-
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <CalendarDays className="w-4 h-4" />
-                <time dateTime={post.date}>
-                  {new Date(post.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </time>
-              </div>
-              <span>•</span>
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4" />
-                <span>{post.readingTime}</span>
-              </div>
-              <span>•</span>
-              <span>By {post.author}</span>
-            </div>
-          </header>
-
-          {/* Article Content */}
-          <div className="prose prose-lg dark:prose-invert max-w-none">
-            <MDXRemote source={post.content} options={mdxOptions as any} />
+        {post.tags && post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-8">
+            {post.tags.map((tag: string) => (
+              <span key={tag} className="px-3 py-1 bg-[#FFD700]/20 text-[#4A2511] rounded-full text-sm">
+                {tag}
+              </span>
+            ))}
           </div>
+        )}
 
-          {/* Share Section */}
-          <footer className="mt-12 pt-8 border-t">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-semibold mb-2">Written by {post.author}</h3>
-                <p className="text-sm text-muted-foreground">
-                  AI Generalist · Founder of RevenueLayer
-                </p>
-              </div>
-              <Button variant="outline" size="sm">
-                <Share2 className="w-4 h-4 mr-2" />
-                Share
-              </Button>
-            </div>
-          </footer>
-        </article>
-      </main>
-      <FooterSection />
-    </>
+        <div className="prose prose-lg prose-headings:text-[#4A2511] prose-p:text-[#4A2511] prose-a:text-[#FFD700] prose-strong:text-[#4A2511] prose-code:text-[#4A2511] prose-pre:bg-[#4A2511] prose-pre:text-[#FFF8E7] max-w-none">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-[#D4A574]">
+          <Link href="/blog" className="text-[#FFD700] hover:underline font-medium">
+            ← Back to all posts
+          </Link>
+        </div>
+      </article>
+    </div>
   )
 }

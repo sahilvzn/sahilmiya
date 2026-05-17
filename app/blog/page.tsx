@@ -1,121 +1,85 @@
-import { type Metadata } from "next"
-import Link from "next/link"
-import Image from "next/image"
-import { Navigation } from "@/components/navigation"
-import { FooterSection } from "@/components/footer-section"
-import { getAllPosts } from "@/lib/blog"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { CalendarDays, Clock } from "lucide-react"
+import { supabase } from '@/lib/supabase'
+import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
 
-export const metadata: Metadata = {
-  title: "Blog - AI Systems, Automation & Commerce Insights",
-  description: "Deep dives into AI automation, LLM integration, workflow engineering, commerce systems, and the future of AI-powered business operations by Sahil Miya.",
-  alternates: {
-    canonical: "https://sahilmiya.in/blog",
-  },
-  openGraph: {
-    title: "Blog - AI Systems, Automation & Commerce Insights | Sahil Miya",
-    description: "Deep dives into AI automation, LLM integration, workflow engineering, and commerce systems.",
-    url: "https://sahilmiya.in/blog",
-    type: "website",
-  },
+export const metadata = {
+  title: 'Blog - Sahil Miya | AI Engineering & Automation',
+  description: 'Insights on AI systems, agentic workflows, and building intelligence layers.',
 }
 
-export default function BlogPage() {
-  const posts = getAllPosts()
+export const revalidate = 60
 
-  // JSON-LD for Blog page
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    name: "Sahil Miya's Blog",
-    description: "AI automation, workflow engineering, and commerce systems insights",
-    url: "https://sahilmiya.in/blog",
-    author: {
-      "@type": "Person",
-      name: "Sahil Miya",
-      url: "https://sahilmiya.in",
-    },
-  }
+export default async function BlogPage() {
+  const { data: posts } = await supabase
+    .from('blog_posts')
+    .select('*')
+    .eq('published', true)
+    .order('created_at', { ascending: false })
 
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <Navigation />
-      <main className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 py-16 max-w-6xl">
-          {/* Hero Section */}
-          <div className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              AI Systems & Automation Insights
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl">
-              Deep dives into AI workflow engineering, LLM integration, commerce automation, and building AI-first systems that actually ship.
-            </p>
-          </div>
-
-          {/* Blog Posts Grid */}
-          {posts.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-lg text-muted-foreground">
-                No blog posts yet. Check back soon for content on AI automation, workflow engineering, and commerce systems.
-              </p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {posts.map((post) => (
-                <Link key={post.slug} href={`/blog/${post.slug}`}>
-                  <Card className="h-full hover:shadow-lg transition-shadow duration-300 cursor-pointer">
-                    {post.image && (
-                      <div className="relative w-full h-48 overflow-hidden rounded-t-lg">
-                        <Image
-                          src={post.image}
-                          alt={post.title}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    )}
-                    <CardHeader>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                        <CalendarDays className="w-4 h-4" />
-                        <time dateTime={post.date}>
-                          {new Date(post.date).toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })}
-                        </time>
-                        <span>•</span>
-                        <Clock className="w-4 h-4" />
-                        <span>{post.readingTime}</span>
-                      </div>
-                      <CardTitle className="text-2xl">{post.title}</CardTitle>
-                      <CardDescription className="text-base mt-2">
-                        {post.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardFooter>
-                      <div className="flex flex-wrap gap-2">
-                        {post.tags.map((tag) => (
-                          <Badge key={tag} variant="secondary">
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-                    </CardFooter>
-                  </Card>
-                </Link>
-              ))}
-            </div>
-          )}
+    <div className="min-h-screen bg-[#FEF7E7]">
+      <header className="border-b border-[#D4A574] bg-[#FFF8E7]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <Link href="/" className="inline-flex items-center gap-2 text-[#4A2511] hover:text-[#FFD700] transition-colors mb-4">
+            <ArrowLeft className="w-4 h-4" />
+            Back to home
+          </Link>
+          <h1 className="text-4xl font-bold text-[#4A2511]">Blog</h1>
+          <p className="text-[#4A2511]/70 mt-2">
+            Thoughts on AI systems, agentic workflows, and building intelligence layers
+          </p>
         </div>
+      </header>
+
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {!posts || posts.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-[#4A2511]/60">No blog posts yet. Check back soon!</p>
+          </div>
+        ) : (
+          <div className="space-y-8">
+            {posts.map((post) => (
+              <article key={post.id} className="bg-[#FFF8E7] border border-[#D4A574] rounded-lg p-6 hover:shadow-lg transition-shadow">
+                <Link href={`/blog/${post.slug}`}>
+                  <h2 className="text-2xl font-bold text-[#4A2511] hover:text-[#FFD700] transition-colors mb-2">
+                    {post.title}
+                  </h2>
+                </Link>
+
+                {post.description && (
+                  <p className="text-[#4A2511]/70 mb-4">{post.description}</p>
+                )}
+
+                <div className="flex items-center gap-4 text-sm text-[#4A2511]/60">
+                  <time dateTime={post.created_at}>
+                    {new Date(post.created_at).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </time>
+                  <span>•</span>
+                  <span>{post.author}</span>
+                </div>
+
+                {post.tags && post.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {post.tags.map((tag: string) => (
+                      <span key={tag} className="px-3 py-1 bg-[#FFD700]/20 text-[#4A2511] rounded-full text-sm">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                <Link href={`/blog/${post.slug}`} className="inline-block mt-4 text-[#FFD700] hover:underline font-medium">
+                  Read more →
+                </Link>
+              </article>
+            ))}
+          </div>
+        )}
       </main>
-      <FooterSection />
-    </>
+    </div>
   )
 }

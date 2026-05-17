@@ -1,90 +1,91 @@
 import { NextResponse } from 'next/server'
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
-import { verifyToken, getTokenFromRequest } from '@/lib/auth'
-import { existsSync } from 'fs'
+import { verifyToken } from '@/lib/auth'
+import { supabase } from '@/lib/supabase'
 
-export async function POST(request: Request) {
+// GET /api/admin/posts - Get all posts
+export async function GET(request: Request) {
   try {
-    // Verify authentication
-    const token = getTokenFromRequest(request)
-    if (!token || !verifyToken(token)) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      )
+    const authHeader = request.headers.get('authorization')
+    if (!authHeader) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { title, description, content, tags, image, slug } = await request.json()
+    const token = authHeader.replace('Bearer ', '')
+    const user = verifyToken(token)
 
-    // Validate required fields
-    if (!title || !description || !content || !slug) {
+    if (!user) {
+      return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
+    }
+
+    const { data: posts, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    if (error) throw error
+
+    return NextResponse.json({ posts })
+  } catch (error) {
+    console.error('Error getting posts:', error)
+    return NextResponse.json({ error: 'Failed to get posts' }, { status: 500 })
+  }
+}
+
+// POST /api/admin/posts - Create a new post
+export async function POST(request: Request) {
+  try {
+    const authHeader = request.headers.get('authorization')
+    if (!authHeader) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const token = authHeader.replace('Bearer ', '')
+    const user = verifyToken(token)
+
+    if (!user) {
+      return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
+    }
+
+    const body = await request.json()
+    const { title, slug, description, content, tags, featuredImage } = body
+
+    if (!title || !slug || !content) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
       )
     }
 
-    // Create content/blog directory if it doesn't exist
-    const contentDir = join(process.cwd(), 'content', 'blog')
-    if (!existsSync(contentDir)) {
-      await mkdir(contentDir, { recursive: true })
-    }
+    const { data: post, error } = await supabase
+      .from('blog_posts')
+      .insert({
+        slug: slug.toLowerCase().replace(/[^a-z0-9-]/g, '-'),
+        title,
+        description: description || '',
+        content,
+        author: 'Sahil Miya',
+        tags: tags ? tags.split(',').map((t: string) => t.trim()) : [],
+        featured_image: featuredImage || null,
+        published: true,
+      })
+      .select()
+      .single()
 
-    // Generate MDX frontmatter
-    const frontmatter = `---
-title: "${title}"
-description: "${description}"
-date: "${new Date().toISOString().split('T')[0]}"
-author: "Sahil Miya"
-tags: [${tags?.map((tag: string) => `"${tag}"`).join(', ') || '"AI", "Automation"'}]
-${image ? `image: "${image}"` : ''}
----
-
-`
-
-    const fullContent = frontmatter + content
-
-    // Write file
-    const filePath = join(contentDir, `${slug}.mdx`)
-    await writeFile(filePath, fullContent, 'utf-8')
-
-    return NextResponse.json({
-      success: true,
-      message: 'Blog post published successfully',
-      slug,
-      url: `/blog/${slug}`
-    })
-  } catch (error) {
-    console.error('Blog post creation error:', error)
-    return NextResponse.json(
-      { error: 'Failed to create blog post' },
-      { status: 500 }
-    )
-  }
-}
-
-// Get all blog posts (for admin dashboard)
-export async function GET(request: Request) {
-  try {
-    const token = getTokenFromRequest(request)
-    if (!token || !verifyToken(token)) {
+    if (error) {
+      console.error('Supabase error:', error)
       return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
+        { error: 'Failed to create post. Slug might already exist.' },
+        { status: 500 }
       )
     }
 
-    // Import getAllPosts dynamically to avoid build-time issues
-    const { getAllPosts } = await import('@/lib/blog')
-    const posts = getAllPosts()
-
-    return NextResponse.json({ posts })
+    return NextResponse.json({
+      success: true,
+      message: 'Blog post created successfully!',
+      post,
+    })
   } catch (error) {
-    console.error('Error fetching posts:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch posts' },
-      { status: 500 }
-    )
+    console.error('Error creating post:', error)
+    return NextResponse.json({ error: 'Failed to create post' }, { status: 500 })
   }
 }
