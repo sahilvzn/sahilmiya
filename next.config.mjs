@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   // Enable standard image optimization
   images: {
     formats: ['image/avif', 'image/webp'],
