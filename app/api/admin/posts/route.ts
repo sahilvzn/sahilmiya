@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { verifyToken } from '@/lib/auth'
-import { supabase } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase'
 
 // GET /api/admin/posts - Get all posts
 export async function GET(request: Request) {
@@ -17,7 +17,7 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
     }
 
-    const { data: posts, error } = await supabase
+    const { data: posts, error } = await supabaseAdmin
       .from('blog_posts')
       .select('*')
       .order('created_at', { ascending: false })
@@ -56,7 +56,7 @@ export async function POST(request: Request) {
       )
     }
 
-    const { data: post, error } = await supabase
+    const { data: post, error } = await supabaseAdmin
       .from('blog_posts')
       .insert({
         slug: slug.toLowerCase().replace(/[^a-z0-9-]/g, '-'),
