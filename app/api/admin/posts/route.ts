@@ -64,7 +64,7 @@ export async function POST(request: Request) {
         description: description || '',
         content,
         author: 'Sahil Miya',
-        tags: tags ? tags.split(',').map((t: string) => t.trim()) : [],
+        tags: tags ? (Array.isArray(tags) ? tags : tags.split(',').map((t: string) => t.trim())) : [],
         featured_image: featuredImage || null,
         published: true,
       })
