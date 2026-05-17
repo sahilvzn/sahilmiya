@@ -95,14 +95,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     },
   }
 
-  const mdxOptions = {
+  const mdxOptions: any = {
     mdxOptions: {
       remarkPlugins: [remarkGfm],
-      rehypePlugins: [
-        rehypeHighlight,
-        rehypeSlug,
-        [rehypeAutolinkHeadings, { behavior: "wrap" }],
-      ],
+      rehypePlugins: [rehypeHighlight, rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]],
     },
   }
 
@@ -177,7 +173,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           {/* Article Content */}
           <div className="prose prose-lg dark:prose-invert max-w-none">
-            <MDXRemote source={post.content} options={mdxOptions} />
+            <MDXRemote source={post.content} options={mdxOptions as any} />
           </div>
 
           {/* Share Section */}
