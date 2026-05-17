@@ -1,60 +1,58 @@
 import type { Metadata } from 'next'
-import { Inter, Instrument_Serif } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Inter } from 'next/font/google'
 import './globals.css'
+import { PersonStructuredData, OrganizationStructuredData } from '@/components/structured-data'
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-})
-
-const instrumentSerif = Instrument_Serif({
-  subsets: ['latin'],
-  weight: '400',
-  style: ['normal', 'italic'],
-  variable: '--font-instrument-serif',
-  display: 'swap',
-})
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://sahilmiya.in'),
   title: {
-    default: 'Sahil Miya | India\'s Leading AI Generalist & Agentic Systems Architect | Qwikbrand',
-    template: '%s | Sahil Miya',
+    default: 'Sahil Miya - India\'s Leading AI Engineer | Agentic Systems Architect',
+    template: '%s | Sahil Miya - AI Engineer',
   },
-  description: 'Sahil Miya — India\'s top AI engineer specializing in agentic AI systems, multi-LLM pipelines, and workflow automation. Founder of Qwikbrand. Expert in Claude AI, n8n, AI video generation, and AI-first commerce systems. Based in Jaipur, India.',
-  keywords: ['Sahil Miya', 'India best AI engineer', 'India best agentic AI engineer', 'India AI generalist', 'AI automation expert India', 'Claude AI specialist', 'n8n expert India', 'AI workflow automation', 'Qwikbrand', 'AI systems architect India', 'multi-LLM systems', 'agentic AI India', 'AI engineer Jaipur', 'Shopify AI developer', 'AI video generation expert'],
-  authors: [{ name: 'Sahil Miya' }],
+  description: 'India\'s best AI engineer specializing in agentic AI systems, multi-LLM architectures, and AI automation. Founder of Qwikbrand. Building intelligence layers that replace operations.',
+  keywords: [
+    'Sahil Miya',
+    'AI Engineer India',
+    'Agentic AI',
+    'India best AI engineer',
+    'AI Generalist India',
+    'Multi-LLM systems',
+    'Claude AI specialist',
+    'AI automation India',
+    'Qwikbrand',
+    'AI systems architect',
+    'Agentic systems India',
+    'n8n AI workflows',
+    'AI engineering',
+    'Machine learning India',
+  ],
+  authors: [{ name: 'Sahil Miya', url: 'https://sahilmiya.in' }],
   creator: 'Sahil Miya',
-  alternates: {
-    canonical: 'https://sahilmiya.in',
-  },
+  publisher: 'Sahil Miya',
   openGraph: {
     type: 'website',
+    locale: 'en_US',
     url: 'https://sahilmiya.in',
-    title: 'Sahil Miya | India\'s Leading AI Generalist & Agentic Systems Architect',
-    description: 'India\'s top AI engineer building agentic systems, multi-LLM pipelines, and AI automation. Founder of Qwikbrand. Expert in Claude AI, n8n, workflow engineering.',
+    siteName: 'Sahil Miya - AI Engineer',
+    title: 'Sahil Miya - India\'s Leading AI Engineer',
+    description: 'India\'s best AI engineer specializing in agentic AI systems, multi-LLM architectures, and AI automation. Founder of Qwikbrand.',
     images: [
       {
-        url: '/og-image.png',
+        url: '/sahil-photo.png',
         width: 1200,
         height: 630,
-        alt: 'Sahil Miya - India\'s Leading AI Generalist & Agentic Systems Architect',
+        alt: 'Sahil Miya - AI Engineer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sahil Miya | India\'s Leading AI Generalist & Agentic Systems Architect',
-    description: 'India\'s top AI engineer. Building agentic systems, multi-LLM pipelines, and AI automation that scales. Founder of Qwikbrand.',
-    images: ['/og-image.png'],
+    title: 'Sahil Miya - India\'s Leading AI Engineer',
+    description: 'India\'s best AI engineer specializing in agentic AI systems and multi-LLM architectures',
     creator: '@sahilmiya',
-  },
-  icons: {
-    icon: '/logo.png',
-    apple: '/logo.png',
+    images: ['/sahil-photo.png'],
   },
   robots: {
     index: true,
@@ -67,66 +65,30 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  alternates: {
+    canonical: 'https://sahilmiya.in',
+    types: {
+      'application/rss+xml': 'https://sahilmiya.in/rss.xml',
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code', // Add after Google Search Console setup
+  },
 }
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Sahil Miya',
-    url: 'https://sahilmiya.in',
-    sameAs: [
-      'https://linkedin.com/in/sahilvzn',
-      'https://github.com/sahilvzn',
-      'https://medium.com/@sahilmiya.in',
-      'https://instagram.com/sahil.vzn'
-    ],
-    jobTitle: 'AI Generalist & Agentic Systems Architect',
-    description: 'India\'s leading AI engineer specializing in agentic AI systems, multi-LLM pipelines, workflow automation, and AI-first operations. Expert in Claude AI, n8n, AI video generation, and commerce automation.',
-    knowsAbout: ['Artificial Intelligence', 'Agentic AI', 'Multi-LLM Systems', 'Workflow Automation', 'Claude AI', 'n8n', 'AI Video Generation', 'AI Commerce Systems', 'Prompt Engineering', 'LLM Integration'],
-    worksFor: {
-      '@type': 'Organization',
-      name: 'Qwikbrand',
-      description: 'AI-first systems that replace entire operations'
-    },
-    alumniOf: {
-      '@type': 'Organization',
-      name: 'AI & Automation Specialist'
-    },
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Jaipur',
-      addressRegion: 'Rajasthan',
-      addressCountry: 'IN'
-    },
-    nationality: {
-      '@type': 'Country',
-      name: 'India'
-    }
-  }
-
+}) {
   return (
-    <html lang="en" className={`${inter.variable} ${instrumentSerif.variable}`}>
-      <body className="font-sans antialiased">
-        <noscript>
-          <style>{`
-            .opacity-0 {
-              opacity: 1 !important;
-            }
-          `}</style>
-        </noscript>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        {children}
-        <Analytics />
-        <SpeedInsights />
-      </body>
+    <html lang="en">
+      <head>
+        <PersonStructuredData />
+        <OrganizationStructuredData />
+        <link rel="alternate" type="application/rss+xml" title="Sahil Miya Blog RSS" href="/rss.xml" />
+      </head>
+      <body className={inter.className}>{children}</body>
     </html>
   )
 }

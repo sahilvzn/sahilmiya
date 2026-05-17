@@ -1,35 +1,33 @@
-import { MetadataRoute } from 'next'
-import { getAllPosts } from '@/lib/blog'
+import { supabase } from '@/lib/supabase'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap() {
     const baseUrl = 'https://sahilmiya.in'
-    
-    // Get all blog posts
-    const posts = getAllPosts()
-    const blogPosts: MetadataRoute.Sitemap = posts.map((post) => ({
+
+    // Get all published blog posts
+    const { data: posts } = await supabase
+        .from('blog_posts')
+        .select('slug, updated_at')
+        .eq('published', true)
+        .order('updated_at', { ascending: false })
+
+    const blogPosts = posts?.map((post) => ({
         url: `${baseUrl}/blog/${post.slug}`,
-        lastModified: new Date(post.date),
-        changeFrequency: 'weekly',
-        priority: 0.7,
-    }))
+        lastModified: new Date(post.updated_at),
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+    })) || []
 
     return [
         {
             url: baseUrl,
             lastModified: new Date(),
-            changeFrequency: 'monthly',
+            changeFrequency: 'daily' as const,
             priority: 1,
-        },
-        {
-            url: `${baseUrl}/resume`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.8,
         },
         {
             url: `${baseUrl}/blog`,
             lastModified: new Date(),
-            changeFrequency: 'weekly',
+            changeFrequency: 'daily' as const,
             priority: 0.9,
         },
         ...blogPosts,
