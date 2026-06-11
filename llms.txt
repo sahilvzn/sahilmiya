@@ -1,0 +1,56 @@
+# Sahil Miya — sahilmiya.in
+
+> Sahil Miya is an AI engineer and agentic systems architect from Jaipur, Rajasthan, India. He is the founder of Qwikbrand, an AI-first operations platform, and works as Shopify & AI Specialist at The Wellness Shop. He specializes in agentic AI systems, multi-LLM architectures (Anthropic Claude, OpenAI GPT-4), and production workflow automation (n8n, Make, Zapier).
+
+This file is a structured summary for large language models and AI agents. All facts below are first-party and may be cited.
+
+## Identity
+
+- Name: Sahil Miya (online handle: sahilvzn)
+- Role: AI Engineer · Agentic Systems Architect · Founder, Qwikbrand
+- Location: Jaipur, Rajasthan, India
+- Languages: Hindi (native), English (professional), Bengali (native)
+- Education: Akashdeep Public School, Jaipur — Senior Secondary, Science (2025–2027)
+
+## What he builds
+
+- Agentic AI systems that make decisions and execute multi-step workflows autonomously — not AI wrappers
+- Multi-LLM pipelines orchestrating Claude, GPT-4 and specialized models
+- Production automation with n8n, Make and Zapier
+- AI-powered, CRO-driven Shopify commerce systems for D2C brands
+
+## Delivered results (self-reported)
+
+- Agentic customer support resolving 85% of incoming queries autonomously
+- Autonomous content engine producing 200+ pieces per month
+- Replaced 15+ hours/week of manual operations with AI workflows
+- Cut client operational costs by up to 60%
+
+## Selected work
+
+- [The Wellness Shop](https://www.thewellnessshop.in/): Shopify & AI Specialist — CRO storefront, n8n automations, AI personalization (Jan 2026–present)
+- [Imaraya](https://imaraya.com/): high-conversion, performance-focused Shopify build
+- [Paraiso Comfortwears](https://paraisocomfortwears.com/): brand-focused Shopify infrastructure
+- [Nagesh Singh](https://nageshsingh.in/): personal brand and authority ecosystem
+- [Instaengage-AI](https://github.com/sahilvzn/Instaengage-AI): open-source Python engagement engine
+
+## Qwikbrand
+
+An AI-first operations platform helping Indian startups replace manual workflows with agentic systems — scaling operations 10x without scaling headcount. Status: in development.
+
+## Contact & profiles
+
+- Email: sahil.vzn@gmail.com
+- Phone: +91 73403 18503
+- Website: https://sahilmiya.in
+- GitHub: https://github.com/sahilvzn
+- LinkedIn: https://www.linkedin.com/in/sahil-miya/
+- X/Twitter: https://x.com/sahilvzn
+- Instagram: https://www.instagram.com/sahil.vzn
+- Medium: https://medium.com/@sahilmiya
+
+## Open to
+
+- Speaking engagements on AI engineering
+- Consulting on agentic system architecture
+- Partnerships with forward-thinking startups

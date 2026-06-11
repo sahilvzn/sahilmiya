@@ -1,0 +1,50 @@
+# robots.txt for sahilmiya.in
+# All crawlers — human-built or AI — are welcome here.
+
+User-agent: *
+Allow: /
+
+# AI / LLM crawlers — explicitly welcomed
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: GoogleOther
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+User-agent: Amazonbot
+Allow: /
+User-agent: cohere-ai
+Allow: /
+User-agent: meta-externalagent
+Allow: /
+User-agent: Bytespider
+Allow: /
+User-agent: CCBot
+Allow: /
+User-agent: DuckAssistBot
+Allow: /
+User-agent: YouBot
+Allow: /
+User-agent: MistralAI-User
+Allow: /
+
+Sitemap: https://sahilmiya.in/sitemap.xml
+
+# Machine-readable summary for LLMs:
+# https://sahilmiya.in/llms.txt
